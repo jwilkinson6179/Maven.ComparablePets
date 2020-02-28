@@ -44,7 +44,7 @@ public class ApplicationTest {
         Pet[] expected = {testCat2, testCat, testDog2, testDog, testGorilla, testGorilla2};
 
         Pet[] actual = expected;
-        Arrays.sort(actual);
+        Pet.sort(actual);
 
         assertEquals(expected, actual);
     }
