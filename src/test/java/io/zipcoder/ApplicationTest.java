@@ -4,48 +4,83 @@ package io.zipcoder;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class ApplicationTest {
+public class ApplicationTest
+{
+    @Test
+    public void sortByNameTest()
+    {
+        // GIVEN
 
-    Dog testDog;
-    Dog testDog2;
-    Cat testCat;
-    Cat testCat2;
-    Gorilla testGorilla;
-    Gorilla testGorilla2;
-    Pet[] testArray;
+        Dog testDog = new Dog("Joe");
+        Dog testDog2 = new Dog("Ben");
+        Cat testCat = new Cat("Joe");
+        Cat testCat2 = new Cat("Cindy");
+        Gorilla testGorilla = new Gorilla("Grodd");
+        Gorilla testGorilla2 = new Gorilla("Zeke");
+        ArrayList<Pet> expected = new ArrayList<Pet>();
+        expected.add(testDog2);
+        expected.add(testCat2);
+        expected.add(testGorilla);
+        expected.add(testCat);
+        expected.add(testDog);
+        expected.add(testGorilla2);
+        ArrayList<Pet> petList = new ArrayList<Pet>();
+        petList.add(testDog);
+        petList.add(testCat);
+        petList.add(testDog2);
+        petList.add(testCat2);
+        petList.add(testGorilla);
+        petList.add(testGorilla2);
 
-    @BeforeEach
-    public void init(){
-        testDog = new Dog("Joe");
-        testDog2 = new Dog("Ben");
-        testCat = new Cat("Joe");
-        testCat2 = new Cat("Cindy");
-        testGorilla = new Gorilla("Grodd");
-        testGorilla2 = new Gorilla("Zeke");
-        testArray = new Pet[]{testDog, testDog2, testCat, testCat2, testGorilla, testGorilla2};
+        // WHEN
+
+        Collections.sort(petList);
+
+        // THEN
+
+        assertEquals(expected, petList);
     }
 
     @Test
-    public void sortByNameTest(){
-        Pet[] expected = {testDog2, testCat2, testGorilla, testCat, testDog, testGorilla2};
+    public void sortByNameTest2()
+    {
+        // GIVEN
 
-        Pet[] actual = expected;
-        Arrays.sort(actual);
+        Dog testDog = new Dog("Joe");
+        Dog testDog2 = new Dog("Ben");
+        Cat testCat = new Cat("Joe");
+        Cat testCat2 = new Cat("Cindy");
+        Gorilla testGorilla = new Gorilla("Grodd");
+        Gorilla testGorilla2 = new Gorilla("Zeke");
+        ArrayList<Pet> expected = new ArrayList<Pet>();
+        expected.add(testCat2);
+        expected.add(testCat);
+        expected.add(testDog2);
+        expected.add(testDog);
+        expected.add(testGorilla);
+        expected.add(testGorilla2);
+        ArrayList<Pet> petList = new ArrayList<Pet>();
+        petList.add(testDog);
+        petList.add(testCat);
+        petList.add(testDog2);
+        petList.add(testCat2);
+        petList.add(testGorilla);
+        petList.add(testGorilla2);
 
-        assertEquals(expected, actual);
-    }
+        // WHEN
 
-    @Test
-    public void sortByNameTest2(){
-        Pet[] expected = {testCat2, testCat, testDog2, testDog, testGorilla, testGorilla2};
+        Collections.sort(petList, new PetSorter());
 
-        Pet[] actual = expected;
-        Pet.sort(actual);
+        // THEN
 
-        assertEquals(expected, actual);
+        assertEquals(expected, petList);
     }
 }
